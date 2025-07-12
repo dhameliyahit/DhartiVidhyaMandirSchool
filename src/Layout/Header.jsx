@@ -81,7 +81,7 @@ const Header = () => {
                     </div>
 
                     {/* Horizontal Nav for Mobile */}
-                    <nav className="flex flex-wrap items-center justify-around p-4 gap-3">
+                    <nav className="flex border pb-20 flex-wrap items-center justify-around p-4 gap-3">
                         {navigationLinks.map((link, index) => (
                             <Link
                                 key={index}
