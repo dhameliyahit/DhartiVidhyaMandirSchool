@@ -17,7 +17,7 @@ const HomePage = () => {
       <ShowCase />
       <AboutSection />
       <SalientFeatures />
-     <Addmission isLayout={false}/>
+      <Addmission isLayout={false} />
       <AutoPopupModal />
 
     </Layout>
@@ -397,27 +397,22 @@ const ContactUs = () => {
 };
 
 const AutoPopupModal = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false); // start as false
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    const formSubmitted = localStorage.getItem('formSubmitted');
-
-    // If not submitted, show after delay
+    const formSubmitted = localStorage.getItem("formSubmitted");
     if (!formSubmitted) {
       const timer = setTimeout(() => {
         setIsModalVisible(true);
       }, 3000);
-
       return () => clearTimeout(timer);
-    } else {
-      setIsModalVisible(false); // make sure modal stays hidden
     }
   }, []);
 
   const handleFinish = (values) => {
-    console.log('Form Submitted:', values);
-    localStorage.setItem('formSubmitted', 'true');
+    console.log("Form Submitted:", values);
+    localStorage.setItem("formSubmitted", "true");
     setIsModalVisible(false);
   };
 
@@ -439,7 +434,7 @@ const AutoPopupModal = () => {
         <Form.Item
           name="name"
           label="Your Name"
-          rules={[{ required: true, message: 'Please enter your name' }]}
+          rules={[{ required: true, message: "Please enter your name" }]}
         >
           <Input placeholder="Enter your name" />
         </Form.Item>
@@ -447,7 +442,7 @@ const AutoPopupModal = () => {
         <Form.Item
           name="mobile"
           label="Mobile Number"
-          rules={[{ required: true, message: 'Please enter mobile number' }]}
+          rules={[{ required: true, message: "Please enter mobile number" }]}
         >
           <Input placeholder="Enter mobile number" />
         </Form.Item>
@@ -455,7 +450,7 @@ const AutoPopupModal = () => {
         <Form.Item
           name="studentName"
           label="Student Name"
-          rules={[{ required: true, message: 'Please enter student name' }]}
+          rules={[{ required: true, message: "Please enter student name" }]}
         >
           <Input placeholder="Enter student name" />
         </Form.Item>
@@ -477,9 +472,6 @@ const AutoPopupModal = () => {
     </Modal>
   );
 };
-
-
-
 
 
 
