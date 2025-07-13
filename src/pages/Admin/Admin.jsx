@@ -1,3 +1,4 @@
+// AdminPanel.jsx
 import React, { useState } from "react";
 import {
   Layout,
@@ -9,78 +10,34 @@ import {
   Input,
   message,
 } from "antd";
-import {
-  UserOutlined,
-  FormOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+import { FaUser, FaWpforms } from "react-icons/fa";
+
 
 const { Sider, Content } = Layout;
-const { confirm } = Modal;
 
 const initialAdmissions = [
-  {
-    id: 1,
-    name: "Rahul Patel",
-    email: "rahul@gmail.com",
-    contact: "9876543210",
-    standard: "10th",
-    message: "Interested in admission",
-  },
-  {
-    id: 2,
-    name: "Aarti Mehta",
-    email: "aarti@gmail.com",
-    contact: "9087654321",
-    standard: "12th",
-    message: "Need more info",
-  },
+  { id: 1, name: "Rahul Patel", contact: "9876543210", course: "BCA" },
+  { id: 2, name: "Aarti Mehta", contact: "9087654321", course: "MBA" },
 ];
 
 const initialUsers = [
-  {
-    id: 1,
-    name: "Suresh Bhai",
-    contact: "9876512345",
-    studentName: "Ravi Suresh",
-    parentName: "Suresh Kumar",
-  },
-  {
-    id: 2,
-    name: "Meena Joshi",
-    contact: "9123456789",
-    studentName: "Riya Joshi",
-    parentName: "Manoj Joshi",
-  },
+  { id: 1, email: "test1@example.com", role: "Admin" },
+  { id: 2, email: "demo2@example.com", role: "User" },
 ];
 
-const Admin = () => {
+const AdminPanel = () => {
   const [selectedKey, setSelectedKey] = useState("admission");
   const [admissions, setAdmissions] = useState(initialAdmissions);
   const [users, setUsers] = useState(initialUsers);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+
   const [form] = Form.useForm();
 
   const handleEdit = (item) => {
     setEditingItem(item);
     form.setFieldsValue(item);
     setIsModalOpen(true);
-  };
-
-  const handleDelete = (record) => {
-    confirm({
-      title: "Are you sure you want to delete this record?",
-      icon: <ExclamationCircleOutlined />,
-      onOk() {
-        if (selectedKey === "admission") {
-          setAdmissions((prev) => prev.filter((item) => item.id !== record.id));
-        } else {
-          setUsers((prev) => prev.filter((item) => item.id !== record.id));
-        }
-        message.success("Deleted successfully!");
-      },
-    });
   };
 
   const handleUpdate = () => {
@@ -106,47 +63,34 @@ const Admin = () => {
   const columns =
     selectedKey === "admission"
       ? [
-          { title: "Name", dataIndex: "name", key: "name" },
-          { title: "Email", dataIndex: "email", key: "email" },
-          { title: "Mobile No", dataIndex: "contact", key: "contact" },
-          { title: "Standard", dataIndex: "standard", key: "standard" },
-          { title: "Message", dataIndex: "message", key: "message" },
-          {
-            title: "Action",
-            render: (_, record) => (
-              <>
-                <Button onClick={() => handleEdit(record)} type="link">
-                  Edit
-                </Button>
-                <Button danger onClick={() => handleDelete(record)} type="link">
-                  Delete
-                </Button>
-              </>
-            ),
-          },
-        ]
+        { title: "Name", dataIndex: "name", key: "name" },
+        { title: "Contact", dataIndex: "contact", key: "contact" },
+        { title: "Course", dataIndex: "course", key: "course" },
+        {
+          title: "Action",
+          render: (_, record) => (
+            <Button onClick={() => handleEdit(record)} type="link">
+              Edit
+            </Button>
+          ),
+        },
+      ]
       : [
-          { title: "Name", dataIndex: "name", key: "name" },
-          { title: "Mobile No", dataIndex: "contact", key: "contact" },
-          { title: "Student Name", dataIndex: "studentName", key: "studentName" },
-          { title: "Parent's Name", dataIndex: "parentName", key: "parentName" },
-          {
-            title: "Action",
-            render: (_, record) => (
-              <>
-                <Button onClick={() => handleEdit(record)} type="link">
-                  Edit
-                </Button>
-                <Button danger onClick={() => handleDelete(record)} type="link">
-                  Delete
-                </Button>
-              </>
-            ),
-          },
-        ];
+        { title: "Email", dataIndex: "email", key: "email" },
+        { title: "Role", dataIndex: "role", key: "role" },
+        {
+          title: "Action",
+          render: (_, record) => (
+            <Button onClick={() => handleEdit(record)} type="link">
+              Edit
+            </Button>
+          ),
+        },
+      ];
 
   return (
-    <Layout className="h-screen border">
+    <Layout className="min-h-screen">
+      {/* Sidebar */}
       <Sider theme="dark" width={220}>
         <div className="text-white text-center py-4 text-xl font-bold">
           Admin Panel
@@ -171,6 +115,7 @@ const Admin = () => {
         />
       </Sider>
 
+      {/* Main Content */}
       <Layout>
         <Content className="p-6 bg-gray-100">
           <h2 className="text-2xl font-semibold mb-4">
@@ -182,7 +127,9 @@ const Admin = () => {
           <div className="bg-white p-4 rounded shadow">
             <Table
               columns={columns}
-              dataSource={selectedKey === "admission" ? admissions : users}
+              dataSource={
+                selectedKey === "admission" ? admissions : users
+              }
               rowKey="id"
               pagination={false}
             />
@@ -190,6 +137,7 @@ const Admin = () => {
         </Content>
       </Layout>
 
+      {/* Edit Modal */}
       <Modal
         title={`Edit ${selectedKey === "admission" ? "Admission" : "User"}`}
         open={isModalOpen}
@@ -208,6 +156,23 @@ const Admin = () => {
                 <Input />
               </Form.Item>
               <Form.Item
+                name="contact"
+                label="Contact"
+                rules={[{ required: true, message: "Enter contact number" }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="course"
+                label="Course"
+                rules={[{ required: true, message: "Enter course" }]}
+              >
+                <Input />
+              </Form.Item>
+            </>
+          ) : (
+            <>
+              <Form.Item
                 name="email"
                 label="Email"
                 rules={[{ required: true, message: "Enter email" }]}
@@ -215,54 +180,9 @@ const Admin = () => {
                 <Input />
               </Form.Item>
               <Form.Item
-                name="contact"
-                label="Mobile No"
-                rules={[{ required: true, message: "Enter mobile number" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="standard"
-                label="Standard"
-                rules={[{ required: true, message: "Enter standard" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="message"
-                label="Message"
-                rules={[{ required: true, message: "Enter message" }]}
-              >
-                <Input.TextArea rows={3} />
-              </Form.Item>
-            </>
-          ) : (
-            <>
-              <Form.Item
-                name="name"
-                label="Name"
-                rules={[{ required: true, message: "Enter name" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="contact"
-                label="Mobile No"
-                rules={[{ required: true, message: "Enter mobile number" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="studentName"
-                label="Student Name"
-                rules={[{ required: true, message: "Enter student name" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="parentName"
-                label="Parent's Name"
-                rules={[{ required: true, message: "Enter parent's name" }]}
+                name="role"
+                label="Role"
+                rules={[{ required: true, message: "Enter role" }]}
               >
                 <Input />
               </Form.Item>
@@ -274,4 +194,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminPanel;
