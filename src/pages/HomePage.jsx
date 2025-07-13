@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaUser, FaEnvelope, FaPhone, FaPen, FaCheck } from "react-icons/fa";
 import Addmission from './Addmission';
+import { Modal, Input, Form, Button } from 'antd';
+
 
 
 
@@ -16,6 +18,8 @@ const HomePage = () => {
       <AboutSection />
       <SalientFeatures />
      <Addmission isLayout={false}/>
+      <AutoPopupModal />
+
     </Layout>
   )
 }
@@ -150,7 +154,9 @@ const AboutSection = () => {
 
         {/* Content */}
         <div className="w-full md:w-1/2 text-center md:text-left p-6 md:p-10">
+
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">About Us</h2>
+
           <p className="text-white/90 mb-6 leading-relaxed">
             We are highly concerned about the overall and all-round development of students
             encompassing their mental, physical, emotional, and spiritual dimensions.
@@ -159,7 +165,7 @@ const AboutSection = () => {
           </p>
 
           <Link
-            to="/aboutUs"
+            to="/about"
             className="inline-block px-5 py-2 bg-white text-blue-700 rounded-md font-medium hover:bg-blue-100 transition-all duration-300"
           >
             Read More →
@@ -389,6 +395,91 @@ const ContactUs = () => {
     </section>
   );
 };
+
+const AutoPopupModal = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false); // start as false
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    const formSubmitted = localStorage.getItem('formSubmitted');
+
+    // If not submitted, show after delay
+    if (!formSubmitted) {
+      const timer = setTimeout(() => {
+        setIsModalVisible(true);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    } else {
+      setIsModalVisible(false); // make sure modal stays hidden
+    }
+  }, []);
+
+  const handleFinish = (values) => {
+    console.log('Form Submitted:', values);
+    localStorage.setItem('formSubmitted', 'true');
+    setIsModalVisible(false);
+  };
+
+  return (
+    <Modal
+      open={isModalVisible}
+      closable={false}
+      footer={null}
+      maskClosable={false}
+      centered
+      title="Please fill out the form"
+    >
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={handleFinish}
+        className="space-y-4"
+      >
+        <Form.Item
+          name="name"
+          label="Your Name"
+          rules={[{ required: true, message: 'Please enter your name' }]}
+        >
+          <Input placeholder="Enter your name" />
+        </Form.Item>
+
+        <Form.Item
+          name="mobile"
+          label="Mobile Number"
+          rules={[{ required: true, message: 'Please enter mobile number' }]}
+        >
+          <Input placeholder="Enter mobile number" />
+        </Form.Item>
+
+        <Form.Item
+          name="studentName"
+          label="Student Name"
+          rules={[{ required: true, message: 'Please enter student name' }]}
+        >
+          <Input placeholder="Enter student name" />
+        </Form.Item>
+
+        <Form.Item
+          name="parentName"
+          label="Parent's Name"
+          rules={[{ required: true, message: "Please enter parent's name" }]}
+        >
+          <Input placeholder="Enter parent's name" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="w-full">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
+
+
 
 
 
