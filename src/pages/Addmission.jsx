@@ -20,6 +20,7 @@ const Admission = ({ isLayout = true }) => {
 
     const onSubmit = async (data) => {
         console.log("Form Data:", data);
+        console.log(VITE_API_URL)
         try {
             setLoading(true)
             const res = await axios.post(`${VITE_API_URL}/api/admission`, { data })
