@@ -266,6 +266,7 @@ const SalientFeatures = () => {
 
 
 const AutoPopupModal = () => {
+  const VITE_API_URL = import.meta.env.VITE_API_URL
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false)
@@ -286,7 +287,7 @@ const AutoPopupModal = () => {
     setIsModalVisible(false);
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/api/register", { values });
+      const res = await axios.post(`${VITE_API_URL}/api/register`, { values });
 
       if (res.data?.message) {
         toast.success("Register Successful");
