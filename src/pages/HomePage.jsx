@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { FaUser, FaEnvelope, FaPhone, FaPen, FaCheck } from "react-icons/fa";
 import Addmission from './Addmission';
 import { Modal, Input, Form, Button } from 'antd';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 
 
@@ -19,7 +22,6 @@ const HomePage = () => {
       <SalientFeatures />
       <Addmission isLayout={false} />
       <AutoPopupModal />
-
     </Layout>
   )
 }
@@ -263,142 +265,10 @@ const SalientFeatures = () => {
 };
 
 
-
-const ContactUs = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    // You can add API call here
-  };
-
-  return (
-    <section className="py-16 px-4 bg-gray-50" id="contact">
-      <div className="max-w-6xl mx-auto text-center">
-        <p className="text-gray-500 italic mb-2">If You Have Any Query then Contact Us</p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-6">
-          Contact <span className="text-black">Us</span>
-        </h2>
-        <div className="h-1 w-24 bg-green-500 mx-auto mb-12 rounded"></div>
-
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="bg-white shadow-2xl rounded-xl px-6 py-10 grid gap-6 md:grid-cols-2 relative z-10"
-        >
-          {/* Name */}
-          <div className="flex flex-col">
-            <div className="flex items-center border border-dotted px-4 py-3 rounded-full">
-              <FaUser className="text-gray-400 mr-2" />
-              <input
-                type="text"
-                placeholder="Name"
-                {...register("name", { required: "Name is required" })}
-                className="w-full outline-none bg-transparent"
-              />
-            </div>
-            {errors.name && <p className="text-red-500 text-sm mt-1 ml-2">{errors.name.message}</p>}
-          </div>
-
-          {/* Email */}
-          <div className="flex flex-col">
-            <div className="flex items-center border border-dotted px-4 py-3 rounded-full">
-              <FaEnvelope className="text-gray-400 mr-2" />
-              <input
-                type="email"
-                placeholder="Email Address"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Invalid email address",
-                  },
-                })}
-                className="w-full outline-none bg-transparent"
-              />
-            </div>
-            {errors.email && <p className="text-red-500 text-sm mt-1 ml-2">{errors.email.message}</p>}
-          </div>
-
-          {/* Phone */}
-          <div className="flex flex-col">
-            <div className="flex items-center border border-dotted px-4 py-3 rounded-full">
-              <FaPhone className="text-gray-400 mr-2" />
-              <input
-                type="tel"
-                placeholder="Phone"
-                {...register("phone", {
-                  required: "Phone is required",
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: "Enter a valid 10-digit phone number",
-                  },
-                })}
-                className="w-full outline-none bg-transparent"
-              />
-            </div>
-            {errors.phone && <p className="text-red-500 text-sm mt-1 ml-2">{errors.phone.message}</p>}
-          </div>
-
-          {/* Standard */}
-          <div className="flex flex-col">
-            <div className="flex items-center border border-dotted px-4 py-3 rounded-full">
-              <FaPen className="text-gray-400 mr-2" />
-              <input
-                type="text"
-                placeholder="Standard"
-                {...register("standard", { required: "Standard is required" })}
-                className="w-full outline-none bg-transparent"
-              />
-            </div>
-            {errors.standard && <p className="text-red-500 text-sm mt-1 ml-2">{errors.standard.message}</p>}
-          </div>
-
-          {/* Message */}
-          <div className="md:col-span-2 flex flex-col">
-            <div className="border border-dotted px-4 py-3 rounded-2xl flex">
-              <FaPen className="text-gray-400 mr-2 mt-1" />
-              <textarea
-                placeholder="How can we help you? Feel free to get in touch!"
-                {...register("message", { required: "Message is required" })}
-                className="w-full outline-none bg-transparent resize-none"
-                rows="4"
-              ></textarea>
-            </div>
-            {errors.message && <p className="text-red-500 text-sm mt-1 ml-2">{errors.message.message}</p>}
-          </div>
-
-          {/* Checkbox + Button */}
-          <div className="md:col-span-2 flex flex-col sm:flex-row justify-between items-center gap-4 mt-4">
-            <label className="flex items-center text-sm text-gray-600">
-              <input
-                type="checkbox"
-                {...register("agree", { required: "You must agree before submitting." })}
-                className="mr-2"
-              />
-              I agree that my submitted data is being collected and stored.
-            </label>
-            {errors.agree && <p className="text-red-500 text-sm">{errors.agree.message}</p>}
-
-            <button
-              type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-full flex items-center gap-2 transition"
-            >
-              <FaCheck /> Get In Touch
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
-  );
-};
-
 const AutoPopupModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const formSubmitted = localStorage.getItem("formSubmitted");
@@ -410,69 +280,84 @@ const AutoPopupModal = () => {
     }
   }, []);
 
-  const handleFinish = (values) => {
+  const handleFinish = async (values) => {
     console.log("Form Submitted:", values);
     localStorage.setItem("formSubmitted", "true");
     setIsModalVisible(false);
+    try {
+      setLoading(true);
+      const res = await axios.post("http://localhost:3000/api/register", { values });
+
+      if (res.data?.message) {
+        toast.success("Register Successful");
+      } else {
+        toast.error("Unexpected response. Please try again.");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Modal
-      open={isModalVisible}
-      closable={false}
-      footer={null}
-      maskClosable={false}
-      centered
-      title="Please fill out the form"
-    >
-      <Form
-        layout="vertical"
-        form={form}
-        onFinish={handleFinish}
-        className="space-y-4"
+    <>
+      {loading && <LoadingSpinner />}
+      <Modal
+        open={isModalVisible}
+        closable={false}
+        footer={null}
+        maskClosable={false}
+        centered
+        title="Please fill out the form"
       >
-        <Form.Item
-          name="name"
-          label="Your Name"
-          rules={[{ required: true, message: "Please enter your name" }]}
+        <Form
+          layout="vertical"
+          form={form}
+          onFinish={handleFinish}
+          className="space-y-4"
         >
-          <Input placeholder="Enter your name" />
-        </Form.Item>
+          <Form.Item
+            name="name"
+            label="Your Name"
+            rules={[{ required: true, message: "Please enter your name" }]}
+          >
+            <Input placeholder="Enter your name" />
+          </Form.Item>
 
-        <Form.Item
-          name="mobile"
-          label="Mobile Number"
-          rules={[{ required: true, message: "Please enter mobile number" }]}
-        >
-          <Input placeholder="Enter mobile number" />
-        </Form.Item>
+          <Form.Item
+            name="mobile"
+            label="Mobile Number"
+            rules={[{ required: true, message: "Please enter mobile number" }]}
+          >
+            <Input placeholder="Enter mobile number" />
+          </Form.Item>
 
-        <Form.Item
-          name="studentName"
-          label="Student Name"
-          rules={[{ required: true, message: "Please enter student name" }]}
-        >
-          <Input placeholder="Enter student name" />
-        </Form.Item>
+          <Form.Item
+            name="studentName"
+            label="Student Name"
+            rules={[{ required: true, message: "Please enter student name" }]}
+          >
+            <Input placeholder="Enter student name" />
+          </Form.Item>
 
-        <Form.Item
-          name="parentName"
-          label="Parent's Name"
-          rules={[{ required: true, message: "Please enter parent's name" }]}
-        >
-          <Input placeholder="Enter parent's name" />
-        </Form.Item>
+          <Form.Item
+            name="parentName"
+            label="Parent's Name"
+            rules={[{ required: true, message: "Please enter parent's name" }]}
+          >
+            <Input placeholder="Enter parent's name" />
+          </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </Modal>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="w-full">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 };
-
-
 
 export default HomePage

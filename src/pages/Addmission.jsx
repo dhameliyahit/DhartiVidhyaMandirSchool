@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaUser, FaEnvelope, FaCommentDots, FaPhone, FaCheck } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import Layout from "../Layout/Layout";
+import { toast } from 'react-hot-toast';
+import axios from 'axios'
+import LoadingSpinner from "../components/LoadingSpinner";
+
+
+const VITE_API_URL = import.meta.env.VITE_API_URL
 
 const Admission = ({ isLayout = true }) => {
+    const [loading, setLoading] = useState(false)
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log("Form Data:", data);
+        try {
+            setLoading(true)
+            const res = await axios.post(`${VITE_API_URL}/api/admission`, { data })
+            if (res.data.message) {
+                setLoading(false)
+                toast.success("Admission Inquiry Successfully Send");
+            }
+        } catch (error) {
+            console.error("Error While Submitting Information...")
+            toast.error("Form Submit Faild ...")
+            setLoading(false)
+        }
         // Submit logic
     };
 
@@ -156,6 +175,7 @@ const Admission = ({ isLayout = true }) => {
 
     return (
         <>
+            {loading && <LoadingSpinner />}
             {isLayout ? <Layout>{content}</Layout> : content}
         </>
     );

@@ -127,6 +127,9 @@ const Footer = () => {
                             <li className="flex items-center gap-2">
                                 <FaEnvelope /> info@dhartividhyamandir.com
                             </li>
+                            <li className="flex items-center gap-2">
+                                <Link to="/login">Login</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
