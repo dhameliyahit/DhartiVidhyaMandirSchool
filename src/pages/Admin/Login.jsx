@@ -40,8 +40,8 @@ const Login = () => {
                 className="min-h-screen flex items-center justify-center px-4"
                 style={{
                     backgroundImage: "url('https://plus.unsplash.com/premium_photo-1671229454899-3ba177f87592?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHB1cnBsZSUyMGdyYWRpZW50JTIwbGFuZHNjYXBlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D')",
-                    backgroundRepeat:"no-repeat",
-                    backgroundSize:"cover"
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover"
                 }}
             >
                 <div className="w-full max-w-md backdrop-blur-sm border border-white rounded-lg shadow-lg overflow-hidden">
@@ -116,11 +116,13 @@ const Login = () => {
                             {/* Login Button */}
                             <div>
                                 <button
-                                    type="submit" 
-                                    className="w-full cursor-pointer flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                                    type="submit"
+                                    className="w-full border hover:text-black    border-white py-3 rounded-t-full rounded-b-full  relative overflow-hidden group cursor-pointer flex justify-center px-4 shadow-sm text-sm font-medium text-white bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                                 >
-                                    Login
+                                    <span className="relative z-10 hover:text-black font-bold ">Login</span>
+                                    <span className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out z-0 hover:text-black"></span>
                                 </button>
+
                             </div>
                         </form>
 

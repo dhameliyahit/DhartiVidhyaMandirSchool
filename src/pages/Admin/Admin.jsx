@@ -171,7 +171,7 @@ const AdminPanel = () => {
 
   return (
     <>
-    {loading && <LoadingSpinner/>}
+      {loading && <LoadingSpinner />}
       <Layout className="h-screen">
         {/* Sidebar */}
         <Sider theme="dark" width={220}>
@@ -227,13 +227,13 @@ const AdminPanel = () => {
           <Form form={form} layout="vertical">
             {selectedKey === "admission" ? (
               <>
-                <Form.Item label="Name">
+                <Form.Item name="name" label="Name">
                   <Input disabled />
                 </Form.Item>
-                <Form.Item label="Email">
+                <Form.Item name="email" label="Email">
                   <Input disabled />
                 </Form.Item>
-                <Form.Item label="Phone">
+                <Form.Item name="phone" label="Phone">
                   <Input disabled />
                 </Form.Item>
                 <Form.Item name="comment" label="Comment">
@@ -243,16 +243,16 @@ const AdminPanel = () => {
             ) : (
               <>
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]}>
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item name="studentName" label="Student Name" rules={[{ required: true }]}>
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item name="parentName" label="Parent Name" rules={[{ required: true }]}>
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
                 <Form.Item name="comment" label="Comment">
                   <Input.TextArea rows={3} />
