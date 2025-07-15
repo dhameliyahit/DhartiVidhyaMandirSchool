@@ -93,7 +93,7 @@ const AdminPanel = () => {
         fetchAdmissions();
         toast.success("Admission deleted");
       } else {
-        await axios.delete(`${VITE_API_URL} /api/register/${id}`);
+        await axios.delete(`${VITE_API_URL}/api/register/${id}`);
         fetchRegisters();
         toast.success("Register deleted");
       }
