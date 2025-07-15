@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
@@ -9,8 +9,14 @@ import Login from './pages/Admin/Login'
 import { Toaster } from 'react-hot-toast';
 import Admin from './pages/Admin/Admin';
 import PrivateRoute from './components/PrivateRoute';
+import AOS from 'aos'
+import "aos/dist/aos.css";
 
 const App = () => {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <>
       <Toaster />

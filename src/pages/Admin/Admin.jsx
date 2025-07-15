@@ -18,8 +18,10 @@ const { Sider, Content } = Layout;
 
 
 const VITE_API_URL = import.meta.env.VITE_API_URL
+import LoadingSpinner from './../../components/LoadingSpinner';
 
 const AdminPanel = () => {
+  const [loading, setLoading] = useState(false);
   const [selectedKey, setSelectedKey] = useState("admission");
   const [admissions, setAdmissions] = useState([]);
   const [registers, setRegisters] = useState([]);
@@ -30,22 +32,28 @@ const AdminPanel = () => {
   // Fetch Admission Data
   const fetchAdmissions = async () => {
     try {
+      setLoading(true)
       const res = await axios.get(`${VITE_API_URL}/api/admission`);
       setAdmissions(res.data);
+      setLoading(false)
     } catch (error) {
       console.error(error);
       toast.error("Error fetching admission data");
+      setLoading(false)
     }
   };
 
   // Fetch Register Data
   const fetchRegisters = async () => {
     try {
+      setLoading(true)
       const res = await axios.get(`${VITE_API_URL}/api/register`);
       setRegisters(res.data);
+      setLoading(false)
     } catch (error) {
       console.error(error);
       toast.error("Error fetching registered users");
+      setLoading(false)
     }
   };
 
@@ -68,20 +76,25 @@ const AdminPanel = () => {
       const id = editingItem._id;
 
       if (selectedKey === "admission") {
+        setLoading(true)
         await axios.put(`${VITE_API_URL}/api/admission/${id}`, {
           comment: updatedValues.comment,
         });
         toast.success("Admission updated");
         fetchAdmissions();
+        setLoading(false)
       } else {
+        setLoading(true)
         await axios.put(`${VITE_API_URL}/api/register/${id}`, updatedValues);
         toast.success("Register updated");
         fetchRegisters();
+        setLoading(false)
       }
 
       setIsModalOpen(false);
     } catch (err) {
       toast.error("Update failed");
+      setLoading(false)
     }
   };
 
@@ -89,16 +102,21 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     try {
       if (selectedKey === "admission") {
+        setLoading(true)
         await axios.delete(`${VITE_API_URL}/api/admission/${id}`);
         fetchAdmissions();
+        setLoading(false)
         toast.success("Admission deleted");
       } else {
+        setLoading(true)
         await axios.delete(`${VITE_API_URL}/api/register/${id}`);
         fetchRegisters();
         toast.success("Register deleted");
+        setLoading(false)
       }
     } catch (error) {
       toast.error("Delete failed");
+      setLoading(false)
     }
   };
 
@@ -152,96 +170,99 @@ const AdminPanel = () => {
   };
 
   return (
-    <Layout className="h-screen">
-      {/* Sidebar */}
-      <Sider theme="dark" width={220}>
-        <div className="text-white text-center py-4 text-xl font-bold">
-          Admin Panel
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          selectedKeys={[selectedKey]}
-          onClick={({ key }) => setSelectedKey(key)}
-          items={[
-            { key: "admission", icon: <FaWpforms />, label: "Admission Inquiry" },
-            { key: "register", icon: <FaUser />, label: "Registered Users" },
-          ]}
-        />
-      </Sider>
-
-      {/* Main Content */}
-      <Layout>
-        <Content className="p-4 sm:p-6 bg-gray-100">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl sm:text-2xl font-semibold">
-              {selectedKey === "admission" ? "Admission Inquiries" : "Registered Users"}
-            </h2>
-            <Button onClick={() => {
-              selectedKey === "admission" ? fetchAdmissions() : fetchRegisters();
-            }}>
-              Refresh
-            </Button>
+    <>
+    {loading && <LoadingSpinner/>}
+      <Layout className="h-screen">
+        {/* Sidebar */}
+        <Sider theme="dark" width={220}>
+          <div className="text-white text-center py-4 text-xl font-bold">
+            Admin Panel
           </div>
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[selectedKey]}
+            onClick={({ key }) => setSelectedKey(key)}
+            items={[
+              { key: "admission", icon: <FaWpforms />, label: "Admission Inquiry" },
+              { key: "register", icon: <FaUser />, label: "Registered Users" },
+            ]}
+          />
+        </Sider>
 
-          <div className="bg-white p-4 rounded shadow overflow-auto">
-            <Table
-              columns={getColumns()}
-              dataSource={selectedKey === "admission" ? admissions : registers}
-              rowKey="_id"
-              pagination={{ pageSize: 5 }}
-              scroll={{ x: true }}
-            />
-          </div>
-        </Content>
+        {/* Main Content */}
+        <Layout>
+          <Content className="p-4 sm:p-6 bg-gray-100">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl sm:text-2xl font-semibold">
+                {selectedKey === "admission" ? "Admission Inquiries" : "Registered Users"}
+              </h2>
+              <Button onClick={() => {
+                selectedKey === "admission" ? fetchAdmissions() : fetchRegisters();
+              }}>
+                Refresh
+              </Button>
+            </div>
+
+            <div className="bg-white p-4 rounded shadow overflow-auto">
+              <Table
+                columns={getColumns()}
+                dataSource={selectedKey === "admission" ? admissions : registers}
+                rowKey="_id"
+                pagination={{ pageSize: 5 }}
+                scroll={{ x: true }}
+              />
+            </div>
+          </Content>
+        </Layout>
+
+        {/* Edit Modal */}
+        <Modal
+          title={`Edit ${selectedKey === "admission" ? "Admission" : "Register"}`}
+          open={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          onOk={handleUpdate}
+          okText="Update"
+        >
+          <Form form={form} layout="vertical">
+            {selectedKey === "admission" ? (
+              <>
+                <Form.Item label="Name">
+                  <Input disabled />
+                </Form.Item>
+                <Form.Item label="Email">
+                  <Input disabled />
+                </Form.Item>
+                <Form.Item label="Phone">
+                  <Input disabled />
+                </Form.Item>
+                <Form.Item name="comment" label="Comment">
+                  <Input.TextArea rows={3} />
+                </Form.Item>
+              </>
+            ) : (
+              <>
+                <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="studentName" label="Student Name" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="parentName" label="Parent Name" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="comment" label="Comment">
+                  <Input.TextArea rows={3} />
+                </Form.Item>
+              </>
+            )}
+          </Form>
+        </Modal>
       </Layout>
-
-      {/* Edit Modal */}
-      <Modal
-        title={`Edit ${selectedKey === "admission" ? "Admission" : "Register"}`}
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={handleUpdate}
-        okText="Update"
-      >
-        <Form form={form} layout="vertical">
-          {selectedKey === "admission" ? (
-            <>
-              <Form.Item label="Name">
-                <Input disabled />
-              </Form.Item>
-              <Form.Item label="Email">
-                <Input disabled />
-              </Form.Item>
-              <Form.Item label="Phone">
-                <Input disabled />
-              </Form.Item>
-              <Form.Item name="comment" label="Comment">
-                <Input.TextArea rows={3} />
-              </Form.Item>
-            </>
-          ) : (
-            <>
-              <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="studentName" label="Student Name" rules={[{ required: true }]}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="parentName" label="Parent Name" rules={[{ required: true }]}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="comment" label="Comment">
-                <Input.TextArea rows={3} />
-              </Form.Item>
-            </>
-          )}
-        </Form>
-      </Modal>
-    </Layout>
+    </>
   );
 };
 

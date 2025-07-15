@@ -30,8 +30,8 @@ const Gallery = () => {
                 </div>
             </section>
             <div className="p-4">
-            {/* Custom CSS for Masonry Grid */}
-            <style jsx>{`
+                {/* Custom CSS for Masonry Grid */}
+                <style jsx>{`
                 .masonry-grid {
                     column-count: 1; /* Default for mobile */
                     column-gap: 1rem; /* Tailwind's gap-4 is 1rem */
@@ -67,38 +67,41 @@ const Gallery = () => {
                 }
             `}</style>
 
-            <div className="masonry-grid">
-                {images.map((img) => (
+                <div className="masonry-grid">
+                    {images.map((img) => (
+                        <div
+                            key={img.id}
+                            data-aos="zoom-in-down"
+                            data-aos-delay="300"
+                            data-aos-easing="ease-out-cubic"
+                            className="masonry-item w-full overflow-hidden cursor-pointer rounded-lg hover:scale-[1.02] transition-transform duration-200"
+                            onClick={() => setSelectedImage(img.url)}
+                        >
+                            <img
+                                src={img.url}
+                                alt={`Yoga ${img.id}`}
+                                className="w-full h-auto object-cover rounded-lg" // h-auto is crucial here
+                                loading="lazy"
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                {/* Modal */}
+                {selectedImage && (
                     <div
-                        key={img.id}
-                        className="masonry-item w-full overflow-hidden cursor-pointer rounded-lg hover:scale-[1.02] transition-transform duration-200"
-                        onClick={() => setSelectedImage(img.url)}
+                        className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4"
+                        onClick={() => setSelectedImage(null)}
                     >
                         <img
-                            src={img.url}
-                            alt={`Yoga ${img.id}`}
-                            className="w-full h-auto object-cover rounded-lg" // h-auto is crucial here
-                            loading="lazy"
+                            src={selectedImage}
+                            alt="Zoomed"
+                            className="max-h-[90vh] max-w-[90vw] rounded-lg shadow-lg object-contain"
+                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image itself
                         />
                     </div>
-                ))}
+                )}
             </div>
-
-            {/* Modal */}
-            {selectedImage && (
-                <div
-                    className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4"
-                    onClick={() => setSelectedImage(null)}
-                >
-                    <img
-                        src={selectedImage}
-                        alt="Zoomed"
-                        className="max-h-[90vh] max-w-[90vw] rounded-lg shadow-lg object-contain"
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image itself
-                    />
-                </div>
-            )}
-        </div>
         </Layout>
     );
 };

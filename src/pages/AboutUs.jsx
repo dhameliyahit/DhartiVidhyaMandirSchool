@@ -32,13 +32,13 @@ const HeroSection = () => {
 const VisionSection = () => {
     return (
         <section className="py-16 px-6 md:px-12">
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+            <div data-aos="fade-left" className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
                 <img
                     src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                     alt="Vision"
                     className="rounded-2xl shadow-lg"
                 />
-                <div>
+                <div data-aos="fade-right">
                     <h2 className="text-3xl font-bold text-blue-900 mb-4">Our Vision</h2>
                     <p className="text-gray-700 text-lg leading-relaxed">
                         At Dharti Vidhya Mandir, our vision is to foster a generation of learners who are
@@ -53,7 +53,7 @@ const VisionSection = () => {
 
 const MissionSection = () => {
     return (
-        <section className="py-16 px-6 md:px-12 bg-white">
+        <section data-aos="fade-down" className="py-16 px-6 md:px-12 bg-white">
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
                 <div>
                     <h2 className="text-3xl font-bold text-blue-900 mb-4">Our Mission</h2>
