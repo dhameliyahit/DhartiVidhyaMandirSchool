@@ -128,7 +128,7 @@ const Footer = () => {
                                 <FaEnvelope /> info@dhartividhyamandir.com
                             </li>
                             <li className="flex items-center gap-2">
-                                <Link to="/login">Login</Link>
+                                <Link onClick={()=>window.scrollTo({behavior:"smooth",top:0})} to="/login">Login</Link>
                             </li>
                         </ul>
                     </div>
