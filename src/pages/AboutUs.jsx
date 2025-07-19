@@ -4,7 +4,6 @@ const AboutUs = () => {
     return (
         <div className="bg-gray-50 text-gray-800">
             <Layout>
-
                 <HeroSection />
                 <VisionSection />
                 <MissionSection />
@@ -73,26 +72,56 @@ const MissionSection = () => {
     );
 };
 
+
 const FounderSection = () => {
+    const founders = [
+        {
+            name: "Chirag G. Gadhiya",
+            role: "Founder of Instance IT Solutions",
+            image: "./asset/hemil.jpeg", // Replace with your path
+            message: `We don't settle for mediocrity – we aim for excellence. And that starts with building a world-class team and culture that's second to none. Embracing our strong values, commitment to transparency and bias for action, we strive to make the impossible a reality. It's not always easy, but it's worth it.
+    
+        So if you're someone who's looking to push the boundaries and do the best work of your career, we'd love to get in touch!`,
+        },
+        {
+            name: "Second Founder",
+            role: "Co-Founder of Instance IT Solutions",
+            image: "./asset/snehal.jpeg", // Replace with your path
+            message: `Innovation is not just a goal – it's our culture. We encourage everyone to bring fresh ideas and take ownership. This spirit of growth, learning, and leadership drives our journey forward.
+    
+        If you share this passion, we welcome you to be part of our mission!`,
+        }
+    ];
     return (
-        <section className="py-16 px-6 md:px-12 bg-blue-50">
-            <div className="max-w-4xl mx-auto text-center">
-                <img
-                    src="https://randomuser.me/api/portraits/men/75.jpg"
-                    alt="Founder Hemil"
-                    className="mx-auto rounded-full w-32 h-32 mb-6 shadow-lg object-cover"
-                />
-                <h2 className="text-3xl font-bold text-blue-900 mb-2">Hemil</h2>
-                <p className="text-gray-600 italic mb-6">Founder of Dharti Vidhya Mandir</p>
-                <p className="text-gray-700 leading-relaxed text-lg">
-                    With a dream of creating an inclusive and value-driven education system, Hemil founded
-                    Dharti Vidhya Mandir to empower students with knowledge, confidence, and compassion.
-                    His vision continues to inspire every aspect of our institution.
-                </p>
+        <div className="bg-white py-10 px-4 md:px-16 grayscale hover:grayscale-0 transition duration-500 ease-in-out">
+            <h1 className="text-center pb-5 text-3xl text-shadow-md">Founder's Of <span className="font-extrabold">Dharti Vidya mandir</span> </h1>
+            <div className="grid md:grid-cols-2 gap-8">
+                {founders.map((founder, index) => (
+                    <div key={index} className="bg-blue-900 text-white rounded-lg p-6 shadow-lg flex flex-col md:flex-row items-center gap-6">
+                        <div className="w-60 border h-70 rounded overflow-hidden flex-shrink-0">
+                            <img
+                                src={founder.image}
+                                alt={founder.name}
+                                className="w-full border h-full object-cover"
+                            />
+                            <div className="text-center mt-2">
+                                <h3 className="text-lg font-semibold">{founder.name}</h3>
+                                <p className="text-sm">{founder.role}</p>
+                            </div>
+                        </div>
+                        <div className="flex-1 text-sm mt-4 md:mt-0">
+                            <p className="text-3xl text-cyan-300 leading-tight mb-2">“</p>
+                            <p className="whitespace-pre-line">{founder.message}</p>
+                            <p className="text-3xl text-cyan-300 leading-tight mt-2 text-right">”</p>
+                        </div>
+                    </div>
+                ))}
             </div>
-        </section>
+        </div>
     );
 };
+
+
 
 const images = [
     "https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // 1

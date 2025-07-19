@@ -37,13 +37,15 @@ const Admission = ({ isLayout = true }) => {
     };
 
     const content = (
-        <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-white overflow-hidden" id="contact">
+        <section className="py-20 px-4 overflow-hidden" id="contact">
             <div className="max-w-6xl mx-auto text-center relative z-10">
-                <p className="text-blue-700 font-semibold italic mb-3 text-lg sm:text-xl animate-fade-in-down">
+                <p data-aos="fade-up" className="text-blue-700 font-semibold italic mb-3 text-lg sm:text-xl animate-fade-in-down">
                     If You Have Any Query then Contact Us 👋
                 </p>
-                <h2 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-4 leading-tight animate-fade-in-up">
-                    Admission <span className="text-black inline-block transform transition-transform duration-300 hover:scale-105">Inquiry</span>
+                <h2 data-aos="flip-left"
+                    data-aos-easing="ease-out-cubic"
+                    data-aos-duration="2000" className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight animate-fade-in-up">
+                    Admission <span className="inline-block transform transition-transform duration-300 hover:scale-105">Inquiry</span>
                 </h2>
                 <div className="h-1.5 w-36 mx-auto bg-gradient-to-r from-green-400 via-green-600 to-green-400 rounded-full mb-12 animate-pulse-slow shadow-lg"></div>
 
@@ -52,7 +54,7 @@ const Admission = ({ isLayout = true }) => {
                     className="bg-white/95 backdrop-blur-lg shadow-3xl rounded-4xl px-8 py-12 grid gap-8 md:grid-cols-2 border border-blue-100 transform transition-transform duration-500 ease-out hover:scale-[1.01] relative z-10 animate-fade-in"
                 >
                     {/* Name */}
-                    <div className="flex flex-col relative group">
+                    <div data-aos="fade-left" className="flex flex-col relative group">
                         <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
                             <FaUser className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Name
                         </label>
@@ -69,7 +71,7 @@ const Admission = ({ isLayout = true }) => {
                     </div>
 
                     {/* Email */}
-                    <div className="flex flex-col relative group">
+                    <div data-aos="fade-right" className="flex flex-col relative group">
                         <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
                             <FaEnvelope className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Email Address
                         </label>

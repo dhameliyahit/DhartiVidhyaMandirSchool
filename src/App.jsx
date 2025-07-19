@@ -11,31 +11,39 @@ import Admin from './pages/Admin/Admin';
 import PrivateRoute from './components/PrivateRoute';
 import AOS from 'aos'
 import "aos/dist/aos.css";
+import { useContext } from 'react';
+import ThemeContext from './context/ThemeContext';
 
 const App = () => {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
   }, []);
+
+  const { theme } = useContext(ThemeContext)
+
+
   return (
     <>
-      <Toaster />
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/about' element={<AboutUs />} />
-        <Route path='/Gallery' element={<Gallery />} />
-        <Route path='/facility' element={<Facility />} />
-        <Route path='/addmission-inquiry' element={<Addmission />} />
-        <Route path='/login' element={<Login />} />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <PrivateRoute>
-              <Admin />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <div className={theme === "dark" ? "bg-gray-900 text-white" : "" }>
+        <Toaster />
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/about' element={<AboutUs />} />
+          <Route path='/Gallery' element={<Gallery />} />
+          <Route path='/facility' element={<Facility />} />
+          <Route path='/addmission-inquiry' element={<Addmission />} />
+          <Route path='/login' element={<Login />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <PrivateRoute>
+                <Admin />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </div>
     </>
   )
 }

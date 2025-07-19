@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Sample users
 const users = [
+    { email: "sh03@group.com", password: "SH03@shaileshbhai" },
     { email: "test1@example.com", password: "password1" },
     { email: "demo2@example.com", password: "123456" },
 ];

@@ -98,14 +98,14 @@ const MarqueeBanner = () => {
 const ShowCase = () => {
   const navigation = useNavigate();
   return (
-    <section className="bg-[#F9FAFB] py-12 px-4 sm:px-8 md:px-16">
+    <section className="py-12 px-4 sm:px-8 md:px-16">
       <div className="max-w-7xl mx-auto text-center lg:text-left flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
 
         {/* Left Content */}
         <div data-aos="fade-right" className="lg:w-1/2 md:pl-10">
           <p className="text-gray-500 italic text-lg">Opening Up Your Mind</p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-[#004AAD] mt-2">EDUCATION</h1>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-black mt-1">MATTERS</h2>
+          <h1 className="text-4xl sm:text-5xl font-bold mt-2">EDUCATION</h1>
+          <h2 className="text-3xl sm:text-4xl font-extrabold mt-1">MATTERS</h2>
           <p className="text-gray-700 text-base sm:text-lg mt-4">
             DIVINE SCHOOL CAMPUS provides an environment in which every
             student discovers and realizes their inborn potential.
@@ -253,7 +253,7 @@ const SalientFeatures = () => {
     },
   ];
   return (
-    <section className="w-full bg-gray-50 py-10 px-4">
+    <section className="w-full py-10 px-4">
       <div className="text-center mb-10">
         <p data-aos="fade-down-right" className="text-gray-500 italic">Why choose us</p>
         <h2 className="text-3xl sm:text-4xl font-bold text-blue-950">Our Salient Features</h2>
@@ -266,7 +266,7 @@ const SalientFeatures = () => {
             key={index}
             data-aos="fade-up"
             data-aos-easing="ease-out-cubic"
-            className="group relative p-5 bg-white border-2 border-dotted border-blue-300 rounded-xl shadow hover:shadow-xl transition-all duration-300 text-center"
+            className="group cursor-pointer relative p-5 bg-white border-2 border-dotted border-blue-300 rounded-xl shadow hover:shadow-xl transition-all duration-300 text-center"
           >
             <img
               src={feature.icon}

@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import { TopBar } from "./TopBar";
+import ThemeContext from "../context/ThemeContext";
 
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const location = useLocation();
-
+    const {theme} = useContext(ThemeContext)
     //for mapping our Links
     const navigationLinks = [
         { name: "Home", path: "/" },
@@ -27,7 +28,7 @@ const Header = () => {
                         {/* Logo & name Component */}
                         <img
                             className="w-50"
-                            src={"/asset/DVM_LOGO.png"}
+                            src={theme === "dark" ? "./asset/DVM_LOGO_dark.png" : "/asset/DVM_LOGO.png"}
                             alt="ShreeMahavir courier Logo"
                         />
                     </div>
@@ -40,7 +41,7 @@ const Header = () => {
                                 key={index}
                                 to={link.path}
                                 className={`mx-2 uppercase text-sm font-semibold pb-[2px] transition duration-200 border-b-2 
-                                    ${isActive ? "text-[#0071D4] border-[#0071D4]" : "text-black border-transparent"}
+                                    ${isActive ? "text-[#0071D4] border-[#0071D4]" : "border-transparent"}
                                     hover:border-[#0071D4] hover:text-[#0071D4] hover:scale-[1.05] hover:shadow-sm`}
                             >
                                 {link.name}
