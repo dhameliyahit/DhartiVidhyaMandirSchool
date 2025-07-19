@@ -86,7 +86,7 @@ const FounderSection = () => {
         {
             name: "Second Founder",
             role: "Co-Founder of Instance IT Solutions",
-            image: "./asset/snehal.jpeg", // Replace with your path
+            image: "./asset/shenal.jpeg", // Replace with your path
             message: `Innovation is not just a goal – it's our culture. We encourage everyone to bring fresh ideas and take ownership. This spirit of growth, learning, and leadership drives our journey forward.
     
         If you share this passion, we welcome you to be part of our mission!`,
