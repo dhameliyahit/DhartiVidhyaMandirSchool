@@ -76,16 +76,14 @@ const MissionSection = () => {
 const FounderSection = () => {
     const founders = [
         {
-            name: "Chirag G. Gadhiya",
-            role: "Founder of Instance IT Solutions",
+            name: "Hemil S. Gajera",
             image: "./asset/hemil.jpeg", // Replace with your path
             message: `We don't settle for mediocrity – we aim for excellence. And that starts with building a world-class team and culture that's second to none. Embracing our strong values, commitment to transparency and bias for action, we strive to make the impossible a reality. It's not always easy, but it's worth it.
     
         So if you're someone who's looking to push the boundaries and do the best work of your career, we'd love to get in touch!`,
         },
         {
-            name: "Second Founder",
-            role: "Co-Founder of Instance IT Solutions",
+            name: "Snehal S.",
             image: "./asset/shenal.jpeg", // Replace with your path
             message: `Innovation is not just a goal – it's our culture. We encourage everyone to bring fresh ideas and take ownership. This spirit of growth, learning, and leadership drives our journey forward.
     
@@ -111,6 +109,7 @@ const FounderSection = () => {
                         </div>
                         <div className="flex-1 text-sm mt-4 md:mt-0">
                             <p className="text-3xl text-cyan-300 leading-tight mb-2">“</p>
+                            <h2 className="text-xl font-bold">{founder.name}</h2>
                             <p className="whitespace-pre-line">{founder.message}</p>
                             <p className="text-3xl text-cyan-300 leading-tight mt-2 text-right">”</p>
                         </div>
