@@ -9,8 +9,14 @@ import {
     FaWhatsapp,
     FaArrowUp,
 } from "react-icons/fa";
+import { useContext } from "react";
+import ThemeContext from "../context/ThemeContext";
 
 const Footer = () => {
+
+    const { theme } = useContext(ThemeContext)
+    const isDark = theme === "dark";
+
     const quickLinks = [
         { name: "Home", path: "/" },
         { name: "About Us", path: "/about" },
@@ -128,7 +134,7 @@ const Footer = () => {
                                 <FaEnvelope /> info@dhartividhyamandir.com
                             </li>
                             <li className="flex items-center gap-2">
-                                <Link onClick={()=>window.scrollTo({behavior:"smooth",top:0})} to="/login">Login</Link>
+                                <Link onClick={() => window.scrollTo({ behavior: "smooth", top: 0 })} to="/login">Login</Link>
                             </li>
                         </ul>
                     </div>
@@ -136,7 +142,7 @@ const Footer = () => {
 
                 {/* Copyright */}
             </div>
-            <div className="text-center text-black text-md md:text-md py-2 ">
+            <div className={`${isDark ? "text-white" : "" } text-center text-black text-md md:text-md py-2 `}>
                 © 2025, Divine English School. All Rights Reserved.
             </div>
 

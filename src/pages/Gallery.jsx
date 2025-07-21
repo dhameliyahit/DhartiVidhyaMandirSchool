@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Layout from "../Layout/Layout";
+import ThemeContext from "../context/ThemeContext";
 
 const images = [
     { id: 1, url: "https://images.unsplash.com/photo-1472691681358-fdf00a4bfcfe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2Nob29sJTIwZXZlbnR8ZW58MHx8MHx8fDA%3D" },
@@ -19,56 +20,53 @@ const images = [
 
 const Gallery = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const { theme } = useContext(ThemeContext);
+    const isDark = theme === "dark";
 
     return (
         <Layout>
-            <section className="bg-[#173a94] py-16">
+            <section className={`${isDark ? "bg-[#0D1B2A] text-white" : "bg-[#173a94] text-white"} py-16 border-b-2 border-white`}>
                 <div className="text-center max-w-4xl mx-auto px-4">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-2">
                         Gallery
                     </h2>
-                    <p className="text-white text-lg">
+                    <p className="text-lg">
                         Explore glimpses of activities, achievements, and moments that define the spirit of Dharti Vidhya Mandir.
                     </p>
                 </div>
             </section>
-            <div className="p-4">
-                {/* Custom CSS for Masonry Grid */}
+
+            <div className={`p-4 ${isDark ? "bg-[#0a182f]" : "bg-white"} transition`}>
                 <style jsx>{`
-                .masonry-grid {
-                    column-count: 1; /* Default for mobile */
-                    column-gap: 1rem; /* Tailwind's gap-4 is 1rem */
-                }
-
-                @media (min-width: 640px) { /* sm breakpoint */
-                    .masonry-grid {
-                        column-count: 2;
-                    }
-                }
-
-                @media (min-width: 768px) { /* md breakpoint */
-                    .masonry-grid {
-                        column-count: 3;
-                    }
-                }
-
-                @media (min-width: 1024px) { /* lg breakpoint - optional */
-                    .masonry-grid {
-                        column-count: 4;
-                    }
-                }
-
-                .masonry-item {
-                    break-inside: avoid; /* Prevents an item from breaking across columns */
-                    margin-bottom: 1rem; /* Adds vertical space between items in a column */
-                }
-
-                .masonry-item img {
-                    width: 100%; /* Ensures image takes full width of its column */
-                    height: auto; /* IMPORTANT: Maintain aspect ratio */
-                    display: block; /* Removes extra space below image caused by inline-block */
-                }
-            `}</style>
+          .masonry-grid {
+              column-count: 1;
+              column-gap: 1rem;
+          }
+          @media (min-width: 640px) {
+              .masonry-grid {
+                  column-count: 2;
+              }
+          }
+          @media (min-width: 768px) {
+              .masonry-grid {
+                  column-count: 3;
+              }
+          }
+          @media (min-width: 1024px) {
+              .masonry-grid {
+                  column-count: 4;
+              }
+          }
+          .masonry-item {
+              break-inside: avoid;
+              margin-bottom: 1rem;
+          }
+          .masonry-item img {
+              width: 100%;
+              height: auto;
+              display: block;
+          }
+        `}</style>
 
                 <div className="masonry-grid">
                     {images.map((img) => (
@@ -77,13 +75,15 @@ const Gallery = () => {
                             data-aos="zoom-in-down"
                             data-aos-delay="300"
                             data-aos-easing="ease-out-cubic"
-                            className="masonry-item w-full overflow-hidden cursor-pointer rounded-lg hover:scale-[1.02] transition-transform duration-200"
+                            className={`masonry-item w-full overflow-hidden cursor-pointer rounded-lg 
+              ${isDark ? "hover:brightness-110" : "hover:scale-[1.02]"} 
+              transition-transform duration-200`}
                             onClick={() => setSelectedImage(img.url)}
                         >
                             <img
                                 src={img.url}
-                                alt={`Yoga ${img.id}`}
-                                className="w-full h-auto object-cover rounded-lg" // h-auto is crucial here
+                                alt={`Gallery ${img.id}`}
+                                className="w-full h-auto object-cover rounded-lg"
                                 loading="lazy"
                             />
                         </div>
@@ -93,14 +93,14 @@ const Gallery = () => {
                 {/* Modal */}
                 {selectedImage && (
                     <div
-                        className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4"
+                        className={`fixed inset-0 ${isDark ? "bg-black/90" : "bg-black/70"} flex justify-center items-center z-50 p-4`}
                         onClick={() => setSelectedImage(null)}
                     >
                         <img
                             src={selectedImage}
                             alt="Zoomed"
                             className="max-h-[90vh] max-w-[90vw] rounded-lg shadow-lg object-contain"
-                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image itself
+                            onClick={(e) => e.stopPropagation()}
                         />
                     </div>
                 )}
@@ -108,5 +108,7 @@ const Gallery = () => {
         </Layout>
     );
 };
+
+
 
 export default Gallery;

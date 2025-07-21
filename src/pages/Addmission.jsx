@@ -1,79 +1,84 @@
-import React, { useEffect, useState } from "react";
-import { FaUser, FaEnvelope, FaCommentDots, FaPhone, FaCheck } from "react-icons/fa";
-import { FaClipboardUser } from "react-icons/fa6";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
+import { FaUser, FaEnvelope, FaPhone, FaCheck, FaCommentDots } from "react-icons/fa";
+import { FaClipboardUser } from "react-icons/fa6";
 import Layout from "../Layout/Layout";
-import { toast } from 'react-hot-toast';
-import axios from 'axios'
+import axios from "axios";
+import toast from "react-hot-toast";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ThemeContext from "../context/ThemeContext";
 
-
-const VITE_API_URL = import.meta.env.VITE_API_URL
 
 const Admission = ({ isLayout = true }) => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const { theme } = useContext(ThemeContext);
+    const isDark = theme === "dark";
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
+    const VITE_API_URL = import.meta.env.VITE_API_URL;
+
     const onSubmit = async (data) => {
-        console.log("Form Data:", data);
-        console.log(VITE_API_URL)
         try {
-            setLoading(true)
-            const res = await axios.post(`${VITE_API_URL}/api/admission`, { data })
+            setLoading(true);
+            const res = await axios.post(`${VITE_API_URL}/api/admission`, { data });
             if (res.data.message) {
-                setLoading(false)
-                toast.success("Admission Inquiry Successfully Send");
+                toast.success("Admission Inquiry Successfully Sent");
+                setLoading(false);
             }
         } catch (error) {
-            console.error("Error While Submitting Information...")
-            toast.error("Form Submit Faild ...")
-            setLoading(false)
+            console.error("Error while submitting:", error);
+            toast.error("Form submission failed.");
+            setLoading(false);
         }
-        // Submit logic
     };
 
     const content = (
-        <section className="py-20 px-4 overflow-hidden" id="contact">
+        <section className={`${isDark ? "bg-slate-900" : "bg-gray-100"} py-20 px-4`} id="contact">
             <div className="max-w-6xl mx-auto text-center relative z-10">
-                <p data-aos="fade-up" className="text-blue-700 font-semibold italic mb-3 text-lg sm:text-xl animate-fade-in-down">
+                <p className="text-blue-700 dark:text-blue-400 font-semibold italic mb-3 text-lg sm:text-xl">
                     If You Have Any Query then Contact Us 👋
                 </p>
-                <h2 data-aos="flip-left"
-                    data-aos-easing="ease-out-cubic"
-                    data-aos-duration="2000" className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight animate-fade-in-up">
-                    Admission <span className="inline-block transform transition-transform duration-300 hover:scale-105">Inquiry</span>
+                <h2 className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">
+                    Admission{" "}
+                    <span className="inline-block transform transition-transform duration-300 hover:scale-105">
+                        Inquiry
+                    </span>
                 </h2>
                 <div className="h-1.5 w-36 mx-auto bg-gradient-to-r from-green-400 via-green-600 to-green-400 rounded-full mb-12 animate-pulse-slow shadow-lg"></div>
 
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="bg-white/95 backdrop-blur-lg shadow-3xl rounded-4xl px-8 py-12 grid gap-8 md:grid-cols-2 border border-blue-100 transform transition-transform duration-500 ease-out hover:scale-[1.01] relative z-10 animate-fade-in"
+                    className={`rounded-4xl px-8 py-12 grid gap-8 md:grid-cols-2 border shadow-3xl backdrop-blur-lg transform transition-transform duration-500 ease-out hover:scale-[1.01] relative z-10
+          ${isDark ? "bg-slate-800/90 border-slate-600 text-white" : "bg-white/95 border-blue-100 text-gray-800"}`}
                 >
                     {/* Name */}
-                    <div data-aos="fade-left" className="flex flex-col relative group">
-                        <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
-                            <FaUser className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Name
+                    <div className="flex flex-col relative group">
+                        <label className="text-sm mb-1 flex items-center gap-2 font-medium">
+                            <FaUser className="text-blue-500" /> Name
                         </label>
                         <div className="relative">
                             <input
                                 type="text"
                                 placeholder="Your Full Name"
                                 {...register("name", { required: "Name is required" })}
-                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 bg-white/80 hover:bg-white text-gray-700 placeholder-gray-400"
+                                className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
+                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
+                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
-                            <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500" />
+                            <FaUser className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
                         </div>
                         {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
                     </div>
 
                     {/* Email */}
-                    <div data-aos="fade-right" className="flex flex-col relative group">
-                        <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
-                            <FaEnvelope className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Email Address
+                    <div className="flex flex-col relative group">
+                        <label className="text-sm mb-1 flex items-center gap-2 font-medium">
+                            <FaEnvelope className="text-blue-500" /> Email Address
                         </label>
                         <div className="relative">
                             <input
@@ -86,17 +91,19 @@ const Admission = ({ isLayout = true }) => {
                                         message: "Invalid email address",
                                     },
                                 })}
-                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 bg-white/80 hover:bg-white text-gray-700 placeholder-gray-400"
+                                className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
+                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
+                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
-                            <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500" />
+                            <FaEnvelope className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
                         </div>
                         {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
                     </div>
 
                     {/* Phone */}
                     <div className="flex flex-col relative group">
-                        <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
-                            <FaPhone className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Phone
+                        <label className="text-sm mb-1 flex items-center gap-2 font-medium">
+                            <FaPhone className="text-blue-500" /> Phone
                         </label>
                         <div className="relative">
                             <input
@@ -109,43 +116,49 @@ const Admission = ({ isLayout = true }) => {
                                         message: "Enter valid 10-digit number",
                                     },
                                 })}
-                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 bg-white/80 hover:bg-white text-gray-700 placeholder-gray-400"
+                                className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
+                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
+                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
-                            <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500" />
+                            <FaPhone className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
                         </div>
                         {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
                     </div>
 
                     {/* Standard */}
                     <div className="flex flex-col relative group">
-                        <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
-                            <FaClipboardUser className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Standard
+                        <label className="text-sm mb-1 flex items-center gap-2 font-medium">
+                            <FaClipboardUser className="text-blue-500" /> Standard
                         </label>
                         <div className="relative">
                             <input
                                 type="text"
                                 placeholder="Ex: 1st to 12th"
                                 {...register("standard", { required: "Standard is required" })}
-                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 bg-white/80 hover:bg-white text-gray-700 placeholder-gray-400"
+                                className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
+                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
+                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
-                            <FaClipboardUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500" />
+                            <FaClipboardUser className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
                         </div>
                         {errors.standard && <p className="mt-1 text-sm text-red-600">{errors.standard.message}</p>}
                     </div>
 
                     {/* Message */}
                     <div className="md:col-span-2 flex flex-col relative group">
-                        <label className="text-sm text-gray-700 mb-1 flex items-center gap-2 font-medium">
-                            <FaCommentDots className="text-blue-500 group-hover:text-blue-700 transition-colors" /> Message
+                        <label className="text-sm mb-1 flex items-center gap-2 font-medium">
+                            <FaCommentDots className="text-blue-500" /> Message
                         </label>
                         <div className="relative">
                             <textarea
                                 placeholder="How can we help you?"
                                 rows={5}
                                 {...register("message", { required: "Message is required" })}
-                                className="w-full px-4 py-3 pl-11 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200 bg-white/80 hover:bg-white text-gray-700 placeholder-gray-400 resize-y min-h-[120px]"
+                                className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200 resize-y min-h-[120px]
+                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
+                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             ></textarea>
-                            <FaCommentDots className="absolute left-3 top-4 text-gray-400 group-focus-within:text-blue-500" />
+                            <FaCommentDots className={`absolute left-3 top-4 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
                         </div>
                         {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>}
                     </div>
@@ -153,7 +166,7 @@ const Admission = ({ isLayout = true }) => {
                     {/* Agreement + Submit */}
                     <div className="md:col-span-2 flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 gap-6">
                         <div className="flex flex-col">
-                            <label className="flex items-start gap-2 text-sm text-gray-600 cursor-pointer">
+                            <label className={`flex items-start gap-2 text-sm ${isDark ? "text-gray-300" : "text-gray-600"} cursor-pointer`}>
                                 <input
                                     type="checkbox"
                                     {...register("agree", { required: "You must agree before submitting." })}
@@ -166,7 +179,7 @@ const Admission = ({ isLayout = true }) => {
 
                         <button
                             type="submit"
-                            className="flex cursor-pointer items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-medium rounded-lg hover:from-blue-700 hover:to-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-medium rounded-lg hover:from-blue-700 hover:to-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                         >
                             <FaCheck className="text-xl" /> Get In Touch
                         </button>
@@ -174,7 +187,7 @@ const Admission = ({ isLayout = true }) => {
                 </form>
             </div>
         </section>
-    )
+    );
 
     return (
         <>
@@ -183,5 +196,6 @@ const Admission = ({ isLayout = true }) => {
         </>
     );
 };
+
 
 export default Admission;

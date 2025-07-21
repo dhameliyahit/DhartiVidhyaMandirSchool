@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../Layout/Layout";
+import ThemeContext from "../context/ThemeContext";
 
 const facultyMembers = [
   {
@@ -41,16 +42,29 @@ const facultyMembers = [
 ];
 
 const Facility = () => {
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
     <Layout>
-
-      <section className="bg-gradient-to-b from-[#e3edff] to-white py-16 px-4">
+      <section
+        className={`py-16 px-4 transition-colors duration-300 ${isDark
+          ? "bg-gradient-to-b from-[#0e1b2a] to-[#1c2d45]"
+          : "bg-gradient-to-b from-[#e3edff] to-white"
+          }`}
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-blue-900">
+            <h2
+              className={`text-4xl sm:text-5xl font-extrabold ${isDark ? "text-white" : "text-blue-900"
+                }`}
+            >
               Meet Our Faculty
             </h2>
-            <p className="text-gray-600 mt-4 text-lg">
+            <p
+              className={`mt-4 text-lg ${isDark ? "text-gray-300" : "text-gray-600"
+                }`}
+            >
               Passionate educators guiding the journey of learning and growth.
             </p>
           </div>
@@ -60,20 +74,36 @@ const Facility = () => {
               <div
                 key={index}
                 data-aos="zoom-out-right"
-                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 border border-blue-100"
+                className={`p-6 rounded-2xl transition-all duration-300 transform border 
+                  hover:-translate-y-1 hover:scale-105
+                  ${isDark
+                    ? "bg-[#142437] border-blue-900 text-white shadow-md hover:shadow-blue-900"
+                    : "bg-white border-blue-100 shadow-lg hover:shadow-2xl"
+                  }`}
               >
                 <img
                   src={faculty.image}
                   alt={faculty.name}
                   className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-blue-200"
                 />
-                <h3 className="text-xl font-bold text-blue-800 mb-1">
+                <h3
+                  className={`text-xl font-bold mb-1 ${isDark ? "text-white" : "text-blue-800"
+                    }`}
+                >
                   {faculty.name}
                 </h3>
-                <p className="text-sm font-medium text-blue-600">
+                <p
+                  className={`text-sm font-medium ${isDark ? "text-blue-400" : "text-blue-600"
+                    }`}
+                >
                   {faculty.position}
                 </p>
-                <p className="mt-2 text-gray-500">{faculty.subject}</p>
+                <p
+                  className={`mt-2 text-sm ${isDark ? "text-gray-300" : "text-gray-500"
+                    }`}
+                >
+                  {faculty.subject}
+                </p>
               </div>
             ))}
           </div>
@@ -82,5 +112,6 @@ const Facility = () => {
     </Layout>
   );
 };
+
 
 export default Facility;

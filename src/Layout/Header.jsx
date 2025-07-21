@@ -8,8 +8,9 @@ import ThemeContext from "../context/ThemeContext";
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const location = useLocation();
-    const {theme} = useContext(ThemeContext)
-    //for mapping our Links
+    const { theme } = useContext(ThemeContext);
+    const isDark = theme === "dark";
+
     const navigationLinks = [
         { name: "Home", path: "/" },
         { name: "About Us", path: "/about" },
@@ -21,18 +22,25 @@ const Header = () => {
     return (
         <>
             <TopBar />
-            <div className="flex justify-between items-center py-2 shadow-lg">
+            <div
+                className={`flex justify-between items-center py-2 shadow-lg transition-all duration-300 ${isDark ? "bg-[#0D1B2A] text-white" : "bg-white text-gray-800"
+                    }`}
+            >
                 <Link to="/">
                     <div className="md:px-5">
-                        {" "}
-                        {/* Logo & name Component */}
                         <img
                             className="w-50"
-                            src={theme === "dark" ? "./asset/DVM_LOGO_dark.png" : "/asset/DVM_LOGO.png"}
+                            src={
+                                isDark
+                                    ? "./asset/DVM_LOGO_dark.png"
+                                    : "/asset/DVM_LOGO.png"
+                            }
                             alt="ShreeMahavir courier Logo"
                         />
                     </div>
                 </Link>
+
+                {/* Desktop Links */}
                 <div className="pr-4 hidden md:flex">
                     {navigationLinks.map((link, index) => {
                         const isActive = location.pathname === link.path;
@@ -40,20 +48,22 @@ const Header = () => {
                             <Link
                                 key={index}
                                 to={link.path}
-                                className={`mx-2 uppercase text-sm font-semibold pb-[2px] transition duration-200 border-b-2 
-                                    ${isActive ? "text-[#0071D4] border-[#0071D4]" : "border-transparent"}
-                                    hover:border-[#0071D4] hover:text-[#0071D4] hover:scale-[1.05] hover:shadow-sm`}
+                                className={`mx-2 uppercase text-sm font-semibold pb-[2px] border-b-2 transition duration-200 hover:scale-[1.05] hover:shadow-sm
+                  ${isActive
+                                        ? "text-[#0071D4] border-[#0071D4]"
+                                        : `border-transparent ${isDark
+                                            ? "text-white hover:text-[#00B4D8] hover:border-[#00B4D8]"
+                                            : "text-gray-800 hover:text-[#0071D4] hover:border-[#0071D4]"
+                                        }`
+                                    }`}
                             >
                                 {link.name}
                             </Link>
-
                         );
                     })}
                 </div>
 
-                {/* ------------------------------------*/}
-
-                {/* Hamburger Button */}
+                {/* Hamburger Button (Mobile Only) */}
                 <button
                     className="md:hidden cursor-pointer flex items-center justify-center bg-[#1A2E45] text-white rounded-full p-3 text-2xl mx-2 shadow-md z-50"
                     onClick={() => setIsSidebarOpen(true)}
@@ -61,12 +71,11 @@ const Header = () => {
                     <HiOutlineMenuAlt3 />
                 </button>
 
-                {/* Sidebar (Bottom Slide) */}
+                {/* Sidebar (Mobile Only) */}
                 <div
                     className={`fixed bottom-0 left-0 w-full bg-white z-50 shadow-lg rounded-t-2xl transition-transform duration-500 ease-in-out 
         ${isSidebarOpen ? "translate-y-0" : "translate-y-full"}`}
                 >
-                    {/* Header */}
                     <div className="flex items-center justify-between p-4 border-b">
                         <img
                             src="/asset/DVM_LOGO.png"
@@ -81,7 +90,6 @@ const Header = () => {
                         </button>
                     </div>
 
-                    {/* Horizontal Nav for Mobile */}
                     <nav className="flex border pb-20 flex-wrap items-center justify-around p-4 gap-3">
                         {navigationLinks.map((link, index) => (
                             <Link
