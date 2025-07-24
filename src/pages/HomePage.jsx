@@ -77,7 +77,7 @@ const HeroSection = () => {
       <div data-aos="fade-up" className={`relative z-10 max-w-3xl text-shadow-2xs px-4 sm:px-8 ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}>
         <h1 className="text-3xl text-white sm:text-4xl md:text-5xl font-bold drop-shadow-xl">
           Welcome to{" "}
-          <span className={`${theme === "dark" ? "text-orange-300" : "text-blue-600"}`}>
+          <span className={`${theme === "dark" ? "text-blue-700" : "text-blue-600"}`}>
             Dharti Vidhya Mandir
           </span>
         </h1>
