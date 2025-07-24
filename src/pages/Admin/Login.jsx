@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Layout from "../../Layout/Layout";
 import { useNavigate } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
+import { IoIosEyeOff } from "react-icons/io";
 
 // Sample users
 const users = [
@@ -12,6 +14,9 @@ const users = [
 
 const Login = () => {
     const navigate = useNavigate();
+
+    const [showPassword, setShowPassword] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -78,18 +83,25 @@ const Login = () => {
                                 <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
                                     Password
                                 </label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    {...register("password", {
-                                        required: "Password is required",
-                                        minLength: { value: 4, message: "Min 4 characters" },
-                                    })}
-                                    className="w-full px-4 text-white py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                />
+                                <div className="flex items-center w-full text-white border border-gray-300 rounded-md">
+                                    <input
+                                        id="password"
+                                        type={showPassword ? "text" : "password"}
+                                        {...register("password", {
+                                            required: "Password is required",
+                                            minLength: { value: 4, message: "Min 4 characters" },
+                                        })}
+                                        className="flex-1 rounded-tl-md rounded-bl-md  bg-transparent py-2 px-2 outline-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    />
+                                    <button onClick={() => setShowPassword(!showPassword)} className="px-2 text-xl cursor-pointer">
+                                        {showPassword ? <IoIosEyeOff /> : <FaEye />}
+
+                                    </button>
+                                </div>
                                 {errors.password && (
                                     <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
                                 )}
+
                             </div>
 
                             {/* Remember me & Forgot password */}

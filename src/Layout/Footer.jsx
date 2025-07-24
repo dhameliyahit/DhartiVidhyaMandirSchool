@@ -26,9 +26,9 @@ const Footer = () => {
     ];
 
     const socialLinks = [
-        { icon: <FaFacebookF />, name: "Facebook", url: "https://yourdomain.com" },
-        { icon: <FaInstagram />, name: "Instagram", url: "https://yourdomain.com" },
-        { icon: <FaYoutube />, name: "Youtube", url: "https://yourdomain.com" },
+        { icon: <FaFacebookF />, name: "Facebook", url: "https://www.facebook.com/share/16zKYmkADJ/" },
+        { icon: <FaInstagram />, name: "Instagram", url: "https://www.instagram.com/sunxx.__18?igsh=MTU3c3RveGJ6c2RzZg==" },
+        { icon: <FaYoutube />, name: "Youtube", url: "https://youtube.com" },
     ];
 
     const schoolHours = [
@@ -142,7 +142,7 @@ const Footer = () => {
 
                 {/* Copyright */}
             </div>
-            <div className={`${isDark ? "text-white" : "" } text-center text-black text-md md:text-md py-2 `}>
+            <div className={`${isDark ? "text-white" : ""} text-center text-black text-md md:text-md py-2 `}>
                 © 2025, Divine English School. All Rights Reserved.
             </div>
 

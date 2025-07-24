@@ -133,7 +133,7 @@ const FounderSection = () => {
 So if you're someone who's looking to push the boundaries and do the best work of your career, we'd love to get in touch!`,
         },
         {
-            name: "Snehal S.",
+            name: "Snehal S. Alagiya",
             image: "./asset/shenal.jpeg",
             message: `Innovation is not just a goal – it's our culture. We encourage everyone to bring fresh ideas and take ownership. This spirit of growth, learning, and leadership drives our journey forward.
 

@@ -62,42 +62,33 @@ const HeroSection = () => {
 
   return (
     <section
-      className={`relative w-full h-[70vh] sm:h-[85vh] bg-center bg-no-repeat bg-cover flex items-center justify-center text-center transition-colors duration-500`}
+      className={`relative bg-black/80 w-full h-[70vh] sm:h-[85vh] bg-center bg-no-repeat bg-cover flex items-center justify-center text-center transition-colors duration-500`}
       style={{
         backgroundImage: "url('/asset/school.png')",
       }}
     >
       {/* Dark/Light Overlay */}
       <div
-        className={`absolute inset-0 ${theme === "dark" ? "bg-black/60" : "bg-black/0"
+        className={`absolute inset-0 ${theme === "dark" ? "bg-black/60" : "bg-black/60"
           } z-0 transition-all duration-300`}
       ></div>
 
       {/* Text Content */}
-      <div
-        data-aos="fade-up"
-        className={`relative z-10 max-w-3xl px-4 sm:px-8 ${theme === "dark" ? "text-white" : ""
-          }`}
-      >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold drop-shadow-xl">
+      <div data-aos="fade-up" className={`relative z-10 max-w-3xl text-shadow-2xs px-4 sm:px-8 ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}>
+        <h1 className="text-3xl text-white sm:text-4xl md:text-5xl font-bold drop-shadow-xl">
           Welcome to{" "}
-          <span
-            className={`${theme === "dark" ? "text-green-400" : "text-blue-700"
-              }`}
-          >
+          <span className={`${theme === "dark" ? "text-orange-300" : "text-blue-600"}`}>
             Dharti Vidhya Mandir
           </span>
         </h1>
-        <p className="mt-4 text-lg sm:text-xl md:text-2xl font-medium h-[3rem] sm:h-[3.5rem]">
+        <p className="mt-4 text-white text-lg sm:text-xl md:text-2xl font-medium h-[3rem] sm:h-[3.5rem]">
           <span>{text}</span>
-          <span
-            className={`${theme === "dark" ? "text-green-400" : "text-blue-700"
-              } animate-pulse`}
-          >
+          <span className={`${theme === "dark" ? "text-green-400 animate-pulse" : "text-red-500 animate-pulse"}`}>
             |
           </span>
         </p>
       </div>
+
     </section>
   );
 };

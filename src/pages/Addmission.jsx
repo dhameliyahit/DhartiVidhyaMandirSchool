@@ -134,14 +134,23 @@ const Admission = ({ isLayout = true }) => {
                             <input
                                 type="text"
                                 placeholder="Ex: 1st to 12th"
-                                {...register("standard", { required: "Standard is required" })}
+                                {...register("standard", {
+                                    min: 1,
+                                    max: 12,
+                                    required: "Standard is required"
+                                })}
                                 className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
                 ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
                             <FaClipboardUser className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
                         </div>
-                        {errors.standard && <p className="mt-1 text-sm text-red-600">{errors.standard.message}</p>}
+                        {errors.standard && <p className="mt-1 text-sm text-red-600">
+                            {errors.standard.type === 'min' && 'value must me have 1 not 0'}
+                            {errors.standard.type === 'max' && 'value must me max 12 not more'}
+                            {errors.message.type === 'required' && '\nStandard must me Enter'}
+                        </p>
+                        }
                     </div>
 
                     {/* Message */}
