@@ -73,10 +73,11 @@ const Header = () => {
 
                 {/* Sidebar (Mobile Only) */}
                 <div
-                    className={`fixed bottom-0 left-0 w-full bg-white z-50 shadow-lg rounded-t-2xl transition-transform duration-500 ease-in-out 
-        ${isSidebarOpen ? "translate-y-0" : "translate-y-full"}`}
+                    className={`fixed bottom-0 left-0 w-full z-50 shadow-lg rounded-t-2xl transition-transform duration-500 ease-in-out 
+    bg-white dark:bg-gray-900
+    ${isSidebarOpen ? "translate-y-0" : "translate-y-full"}`}
                 >
-                    <div className="flex items-center justify-between p-4 border-b">
+                    <div className="flex items-center justify-between p-4 border-b border-gray-300 dark:border-gray-700">
                         <img
                             src="/asset/DVM_LOGO.png"
                             alt="Logo"
@@ -84,18 +85,18 @@ const Header = () => {
                         />
                         <button
                             onClick={() => setIsSidebarOpen(false)}
-                            className="text-2xl cursor-pointer text-gray-700 hover:text-red-500"
+                            className="text-2xl cursor-pointer text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400"
                         >
                             <IoMdClose />
                         </button>
                     </div>
 
-                    <nav className="flex border pb-20 flex-wrap items-center justify-around p-4 gap-3">
+                    <nav className="flex flex-wrap items-center justify-around p-4 gap-3 pb-20 border-t border-gray-300 dark:border-gray-700">
                         {navigationLinks.map((link, index) => (
                             <Link
                                 key={index}
                                 to={link.path}
-                                className="text-sm font-semibold uppercase px-4 py-2 rounded-full border hover:bg-[#E31E25] hover:text-white transition-all"
+                                className="text-sm font-semibold uppercase px-4 py-2 rounded-full border border-gray-400 dark:border-gray-600 text-gray-800 dark:text-gray-100 hover:bg-[#E31E25] hover:text-white transition-all"
                                 onClick={() => setIsSidebarOpen(false)}
                             >
                                 {link.name}
@@ -103,6 +104,7 @@ const Header = () => {
                         ))}
                     </nav>
                 </div>
+
 
                 {/* Overlay */}
                 {isSidebarOpen && (
