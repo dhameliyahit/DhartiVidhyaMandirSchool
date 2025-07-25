@@ -12,7 +12,7 @@ export const TopBar = () => {
 
                 {/* Left Side: Welcome Message */}
                 <div className="text-base sm:text-lg md:text-xl uppercase font-medium tracking-wide hover:scale-105 transition-transform duration-300 text-center sm:text-left">
-                    Welcome To <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-blue-400">Dharti Vidhya Mandir</span>
+                    Welcome To <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-blue-400">Saraswati Vidhyalay</span>
                 </div>
 
                 {/* Right Side: Call + Theme Toggle */}

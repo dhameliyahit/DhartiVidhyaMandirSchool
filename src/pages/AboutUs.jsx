@@ -30,7 +30,7 @@ const HeroSection = () => {
                     className={`text-4xl sm:text-5xl font-bold mb-4 ${isDark ? "text-white" : "text-white"
                         }`}
                 >
-                    About Dharti Vidhya Mandir
+                    About Saraswati Vidhyalay
                 </h1>
                 <p
                     className={`text-lg sm:text-xl ${isDark ? "text-gray-300" : "text-white/90"
@@ -71,7 +71,7 @@ const VisionSection = () => {
                         className={`text-lg leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"
                             }`}
                     >
-                        At Dharti Vidhya Mandir, our vision is to foster a generation of learners who are
+                        At Saraswati Vidhyalay , our vision is to foster a generation of learners who are
                         not only academically accomplished but are also emotionally intelligent, socially
                         responsible, and future-ready.
                     </p>
@@ -149,7 +149,7 @@ If you share this passion, we welcome you to be part of our mission!`,
             <h1 className="text-center pb-5 text-3xl font-semibold">
                 Founder's Of{" "}
                 <span className="font-extrabold">
-                    Dharti Vidya Mandir
+                    Saraswati Vidhyalay
                 </span>
             </h1>
 

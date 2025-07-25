@@ -78,7 +78,7 @@ const HeroSection = () => {
         <h1 className="text-3xl text-white sm:text-4xl md:text-5xl font-bold drop-shadow-xl">
           Welcome to{" "}
           <span className={`${theme === "dark" ? "text-blue-700" : "text-blue-600"}`}>
-            Dharti Vidhya Mandir
+            Saraswati Vidhyalay
           </span>
         </h1>
         <p className="mt-4 text-white text-lg sm:text-xl md:text-2xl font-medium h-[3rem] sm:h-[3.5rem]">
@@ -148,7 +148,7 @@ const ShowCase = () => {
           </h2>
 
           <p className={`mt-4 text-base sm:text-lg ${isDark ? "text-gray-300" : "text-gray-700"}`}>
-            DIVINE SCHOOL CAMPUS provides an environment in which every
+            Saraswati Vidhyalay CAMPUS provides an environment in which every
             student discovers and realizes their inborn potential.
           </p>
 
