@@ -175,7 +175,7 @@ const ShowCase = () => {
         {/* Right Images */}
         <div data-aos="fade-left" className="lg:w-1/2 flex justify-center items-center gap-6">
           <img
-            src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80"
+            src={"./asset/our_mission.avif" || "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80"}
             alt="Student Activity 1"
             className="w-40 h-60 object-cover rounded-[100px] shadow-xl"
           />

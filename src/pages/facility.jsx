@@ -7,37 +7,37 @@ const facultyMembers = [
     name: "Mr. Ramesh Patel",
     position: "Principal",
     subject: "Administration",
-    image: "https://api.dicebear.com/7.x/lorelei/svg?seed=Principal",
+    image: "./asset/f_1.svg",
   },
   {
     name: "Ms. Nidhi Shah",
     position: "Vice Principal",
     subject: "English & Moral Science",
-    image: "https://api.dicebear.com/7.x/lorelei/svg?seed=VicePrincipal",
+    image: "./asset/f_2.svg",
   },
   {
     name: "Mr. Kunal Mehta",
     position: "Senior Teacher",
     subject: "Mathematics (Std. 9-10)",
-    image: "https://api.dicebear.com/7.x/lorelei/svg?seed=Mathematics",
+    image: "./asset/f_3.svg",
   },
   {
     name: "Ms. Ritu Parmar",
     position: "Science Teacher",
     subject: "Physics & Chemistry (Std. 8-10)",
-    image: "https://api.dicebear.com/7.x/lorelei/svg?seed=Science",
+    image: "./asset/f_4.svg",
   },
   {
     name: "Mr. Ajay Chauhan",
     position: "Sports Instructor",
     subject: "Physical Education",
-    image: "https://api.dicebear.com/7.x/lorelei/svg?seed=Sports",
+    image: "./asset/f_5.svg",
   },
   {
     name: "Ms. Komal Dave",
     position: "Computer Faculty",
     subject: "Computer Science (Std. 6-10)",
-    image: "https://api.dicebear.com/7.x/lorelei/svg?seed=Computer",
+    image: "./asset/f_6.svg",
   },
 ];
 

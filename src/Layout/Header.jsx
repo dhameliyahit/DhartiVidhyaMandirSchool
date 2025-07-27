@@ -35,7 +35,7 @@ const Header = () => {
                                     ? "./asset/DVM_LOGO_dark.png"
                                     : "/asset/DVM_LOGO.png"
                             }
-                            alt="ShreeMahavir courier Logo"
+                            alt="Sarasvati vidhyalay"
                         />
                     </div>
                 </Link>
@@ -64,7 +64,7 @@ const Header = () => {
                 </div>
  
 
- 
+
                 {/* Hamburger Button (Mobile Only) */}
                 <button
                     className="md:hidden cursor-pointer flex items-center justify-center bg-[#1A2E45] text-white rounded-full p-3 text-2xl mx-2 shadow-md z-50"

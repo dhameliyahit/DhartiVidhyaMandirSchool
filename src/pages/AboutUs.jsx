@@ -56,7 +56,7 @@ const VisionSection = () => {
                 className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center"
             >
                 <img
-                    src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    src={"./asset/our_vision.avif" || "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"}
                     alt="Vision"
                     className="rounded-2xl shadow-lg"
                 />
@@ -110,7 +110,7 @@ const MissionSection = () => {
                     </p>
                 </div>
                 <img
-                    src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
+                    src={"./asset/our_mission.avif" || "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"}
                     alt="Mission"
                     className="rounded-2xl shadow-lg"
                 />
@@ -195,10 +195,10 @@ const GallerySection = () => {
     const isDark = theme === "dark";
 
     const images = [
-        "https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1686688643200-761ccef9c545?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "./asset/a_g_1.avif",
+        "./asset/a_g_2.avif",
+        "./asset/a_g_3.avif",
+        "./asset/a_g_4.avif",
     ];
 
     return (
