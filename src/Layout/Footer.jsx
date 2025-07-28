@@ -143,7 +143,7 @@ const Footer = () => {
                 {/* Copyright */}
             </div>
             <div className={`${isDark ? "text-white" : ""} text-center text-black text-md md:text-md py-2 `}>
-                © 2025, Divine English School. All Rights Reserved.
+                © 2025, Saraswati Vidhyalay. All rights reserved.
             </div>
 
             {/* WhatsApp Floating Button */}
