@@ -432,34 +432,92 @@ const AutoPopupModal = () => {
           onFinish={handleFinish}
           className="space-y-4"
         >
+          {/* Name */}
           <Form.Item
             name="name"
             label="Your Name"
-            rules={[{ required: true, message: "Please enter your name" }]}
+            rules={[
+              { required: true, message: "Please enter your name" },
+              {
+                pattern: /^[A-Za-z\s]+$/,
+                message: "Name can only contain letters and spaces",
+              },
+            ]}
           >
             <Input placeholder="Enter your name" />
           </Form.Item>
 
+          {/* Mobile */}
           <Form.Item
             name="mobile"
             label="Mobile Number"
-            rules={[{ required: true, message: "Please enter mobile number" }]}
+            rules={[
+              { required: true, message: "Please enter mobile number" },
+              {
+                validator: (_, value) => {
+                  if (!value) {
+                    return Promise.reject("Please enter mobile number");
+                  }
+
+                  if (!/^\d{10}$/.test(value)) {
+                    return Promise.reject("Please enter a valid mobile number");
+                  }
+
+                  if (!/^[6-9]\d{9}$/.test(value)) {
+                    return Promise.reject("Please enter a valid mobile number");
+                  }
+
+                  if (/^(\d)\1{9}$/.test(value)) {
+                    return Promise.reject("Please enter a valid mobile number");
+                  }
+
+                  if (value === "1234567890") {
+                    return Promise.reject("Please enter a valid mobile number");
+                  }
+
+                  return Promise.resolve();
+                },
+              },
+            ]}
           >
-            <Input placeholder="Enter mobile number" />
+            <Input
+              placeholder="Enter mobile number"
+              maxLength={10}
+              onKeyPress={(e) => {
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault(); // ❌ block letters/symbols
+                }
+              }}
+            />
           </Form.Item>
 
+
+          {/* Student Name */}
           <Form.Item
             name="studentName"
             label="Student Name"
-            rules={[{ required: true, message: "Please enter student name" }]}
+            rules={[
+              { required: true, message: "Please enter student name" },
+              {
+                pattern: /^[A-Za-z\s]+$/,
+                message: "Name can only contain letters and spaces",
+              },
+            ]}
           >
             <Input placeholder="Enter student name" />
           </Form.Item>
 
+          {/* Parent Name */}
           <Form.Item
             name="parentName"
             label="Parent's Name"
-            rules={[{ required: true, message: "Please enter parent's name" }]}
+            rules={[
+              { required: true, message: "Please enter parent's name" },
+              {
+                pattern: /^[A-Za-z\s]+$/,
+                message: "Name can only contain letters and spaces",
+              },
+            ]}
           >
             <Input placeholder="Enter parent's name" />
           </Form.Item>
@@ -471,6 +529,7 @@ const AutoPopupModal = () => {
           </Form.Item>
         </Form>
       </Modal>
+
     </>
   );
 };

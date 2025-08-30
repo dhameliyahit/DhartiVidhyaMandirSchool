@@ -83,23 +83,27 @@ const Admission = ({ isLayout = true }) => {
                         <div className="relative">
                             <input
                                 type="email"
-                                placeholder="example@email.com"
+                                placeholder="example@gmail.com"
                                 {...register("email", {
                                     required: "Email is required",
                                     pattern: {
-                                        value: /^\S+@\S+$/i,
-                                        message: "Invalid email address",
+                                        value: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,  // ✅ only gmail.com allowed
+                                        message: "Only @gmail.com email is allowed",
                                     },
                                 })}
                                 className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
-                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
-                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+        ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
+        focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
-                            <FaEnvelope className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
+                            <FaEnvelope
+                                className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"
+                                    }`}
+                            />
                         </div>
-                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+                        {errors.email && (
+                            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                        )}
                     </div>
-
                     {/* Phone */}
                     <div className="flex flex-col relative group">
                         <label className="text-sm mb-1 flex items-center gap-2 font-medium">
@@ -132,26 +136,43 @@ const Admission = ({ isLayout = true }) => {
                         </label>
                         <div className="relative">
                             <input
-                                type="text"
-                                placeholder="Ex: 1st to 12th"
+                                type="number"
+                                placeholder="Ex: 1 to 12"
                                 {...register("standard", {
-                                    min: 1,
-                                    max: 12,
-                                    required: "Standard is required"
+                                    required: "Standard is required",
+                                    min: { value: 1, message: "Value must be at least 1" },
+                                    max: { value: 12, message: "Value must not exceed 12" },
+                                    validate: (value) => {
+                                        if (!/^\d{1,2}$/.test(value)) {
+                                            return "Standard must be 1–12 only";
+                                        }
+                                        return true;
+                                    },
                                 })}
+                                onInput={(e) => {
+                                    // prevent more than 2 digits while typing
+                                    if (e.target.value.length > 2) {
+                                        e.target.value = e.target.value.slice(0, 2);
+                                    }
+                                }}
                                 className={`w-full px-4 py-3 pl-11 border rounded-lg outline-none transition-all duration-200
-                ${isDark ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300" : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"}
-                focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+        ${isDark
+                                        ? "bg-slate-700 border-slate-500 text-white placeholder-gray-300"
+                                        : "bg-white/80 border-gray-300 text-gray-700 placeholder-gray-400"
+                                    }
+        focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                             />
-                            <FaClipboardUser className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"}`} />
+                            <FaClipboardUser
+                                className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${isDark ? "text-gray-300" : "text-gray-400"
+                                    }`}
+                            />
                         </div>
-                        {errors.standard && <p className="mt-1 text-sm text-red-600">
-                            {errors.standard.type === 'min' && 'value must me have 1 not 0'}
-                            {errors.standard.type === 'max' && 'value must me max 12 not more'}
-                            {errors.message.type === 'required' && '\nStandard must me Enter'}
-                        </p>
-                        }
+
+                        {errors.standard && (
+                            <p className="mt-1 text-sm text-red-600">{errors.standard.message}</p>
+                        )}
                     </div>
+
 
                     {/* Message */}
                     <div className="md:col-span-2 flex flex-col relative group">
