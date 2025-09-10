@@ -58,7 +58,7 @@ const Login = () => {
             >
                 <div className="w-full max-w-md backdrop-blur-sm border border-white rounded-lg shadow-lg overflow-hidden">
                     <div className="p-8">
-                        <h2 className="text-2xl font-bold text-center text-white mb-6">
+                        <h2 className="text-2xl font-bold text-center hover:text-black text-white mb-6">
                             Login
                         </h2>
 
@@ -124,12 +124,12 @@ const Login = () => {
                             </div>
 
                             {/* Login Button */}
-                            <div>
+                            <div className="">
                                 <button
                                     type="submit"
-                                    className="w-full border border-white py-3 rounded-t-full rounded-b-full relative overflow-hidden group cursor-pointer flex justify-center px-4 shadow-sm text-sm font-medium text-white bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                                    className="w-full border border-white py-3 rounded-t-full rounded-b-full relative overflow-hidden group cursor-pointer flex justify-center px-4 shadow-sm text-sm font-medium bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                                 >
-                                    <span className="relative z-10 hover:text-black font-bold">
+                                    <span className="relative z-10  font-bold">
                                         Login
                                     </span>
                                     <span className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out z-0"></span>
